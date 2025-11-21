@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<joogimenüü>
+
+    <grupp id="hot-drinks">
+        <joogid>
+
+            <jook id="1">
+                <jooginimi>Latte</jooginimi>
+                <kogus>250</kogus>
+                <topsitüüp>Keskmine</topsitüüp>
+                <maksmisviis>card,cash</maksmisviis>
+            </jook>
+
+            <jook id="2">
+                <jooginimi>Cappuccino</jooginimi>
+                <kogus>300</kogus>
+                <topsitüüp>Suur</topsitüüp>
+                <maksmisviis>cash</maksmisviis>
+            </jook>
+
+            <jook id="3">
+                <jooginimi>Hot Chocolate</jooginimi>
+                <kogus>350</kogus>
+                <topsitüüp>Suur</topsitüüp>
+                <maksmisviis>card</maksmisviis>
+            </jook>
+
+            <jook id="4">
+                <jooginimi>Americano</jooginimi>
+                <kogus>200</kogus>
+                <topsitüüp>Väike</topsitüüp>
+                <maksmisviis>cash,card</maksmisviis>
+            </jook>
+
+            <jook id="5">
+                <jooginimi>Flat White</jooginimi>
+                <kogus>220</kogus>
+                <topsitüüp>Keskmine</topsitüüp>
+                <maksmisviis>card</maksmisviis>
+            </jook>
+
+        </joogid>
+    </grupp>
+
+    <grupp id="cold-drinks">
+        <joogid>
+
+            <jook id="6">
+                <jooginimi>Iced Coffee</jooginimi>
+                <kogus>400</kogus>
+                <topsitüüp>Suur</topsitüüp>
+                <maksmisviis>card</maksmisviis>
+            </jook>
+
+            <jook id="7">
+                <jooginimi>Lemonade</jooginimi>
+                <kogus>450</kogus>
+                <topsitüüp>Suur</topsitüüp>
+                <maksmisviis>cash</maksmisviis>
+            </jook>
+
+            <jook id="8">
+                <jooginimi>Frappe</jooginimi>
+                <kogus>350</kogus>
+                <topsitüüp>Keskmine</topsitüüp>
+                <maksmisviis>card</maksmisviis>
+            </jook>
+
+            <jook id="9">
+                <jooginimi>Iced Tea</jooginimi>
+                <kogus>500</kogus>
+                <topsitüüp>Suur</topsitüüp>
+                <maksmisviis>card</maksmisviis>
+            </jook>
+
+            <jook id="10">
+                <jooginimi>Berry Smoothie</jooginimi>
+                <kogus>330</kogus>
+                <topsitüüp>Keskmine</topsитüüp>
+                <maksmisviis>card,cash</maksmisviis>
+            </jook>
+
+        </joogid>
+    </grupp>
+
+    <grupp id="juices">
+        <joogid>
+
+            <jook id="11">
+                <jooginimi>Apple Juice</jooginimi>
+                <kogus>300</kogus>
+                <topsitüüp>Keskmine</topsitüüp>
+                <maksmisviis>cash</maksmisviis>
+            </jook>
+
+            <jook id="12">
+                <jooginimi>Orange Juice</jooginimi>
+                <kogus>300</kogus>
+                <topsитüüp>Keskmine</topsитüüp>
+                <maksmisviis>card</maksmisviis>
+            </jook>
+
+            <jook id="13">
+                <jooginimi>Grape Juice</jooginimi>
+                <kogus>300</kogus>
+                <topsitüüp>Keskmine</topsitüüp>
+                <maksmisviis>card</maksmisviis>
+            </jook>
+
+            <jook id="14">
+                <jooginimi>Carrot Juice</jooginimi>
+                <kogus>300</kogus>
+                <topsitüüp>Keskmine</topsitüüp>
+                <maksmisviis>card,cash</maksmisviis>
+            </jook>
+
+        </joogid>
+    </grupp>
+
+    <grupp id="tee">
+        <joogid>
+
+            <jook id="15">
+                <jooginimi>Green Tea</jooginimi>
+                <kogus>250</kogus>
+                <topsitüüp>Väike</topsiтüüp>
+                <maksmisviis>cash</maksmisviis>
+            </jook>
+
+            <jook id="16">
+                <jooginimi>Black Tea</jooginimi>
+                <kogus>250</kogus>
+                <topsitüüp>Väike</topsitüüp>
+                <maksmisviis>card</maksmisviis>
+            </jook>
+
+            <jook id="17">
+                <jooginimi>Herbal Tea</jooginimi>
+                <kogus>250</kogus>
+                <topsitüüp>Väike</topsitüüp>
+                <maksmisviis>cash</maksmisviis>
+            </jook>
+
+        </joogid>
+    </grupp>
+
+    <grupp id="limonaad">
+        <joogid>
+
+            <jook id="18">
+                <jooginimi>Classic Cola</jooginimi>
+                <kogus>330</kogus>
+                <topsitüüp>Pudel</topsitüüp>
+                <maksmisviis>card,cash</maksmisviis>
+            </jook>
+
+            <jook id="19">
+                <jooginimi>Orange Soda</jooginimi>
+                <kogus>330</kogus>
+                <topsitüüp>Pudel</topsitüüp>
+                <maksmisviis>card</maksmisviis>
+            </jook>
+
+            <jook id="26">
+                <jooginimi>Frapuchino</jooginimi>
+                <kogus>255</kogus>
+                <topsitüüp>Suur</topsitüüp>
+                <maksmisviis>Euro</maksmisviis>
+            </jook>
+
+        </joogid>
+    </grupp>
+
+    <grupp id="alcohol">
+        <joogid>
+
+            <jook id="20">
+                <jooginimi>Beer</jooginimi>
+                <kogus>500</kogus>
+                <topsitüüp>Pudel</topsitüüp>
+                <maksmisviis>card</maksmisviis>
+            </jook>
+
+            <jook id="21">
+                <jooginimi>Red Wine</jooginimi>
+                <kogus>200</kogus>
+                <topsitüüp>Klaas</topsitüüp>
+                <maksmisviis>card</maksmisviis>
+            </jook>
+
+            <jook id="22">
+                <jooginimi>Cider</jooginimi>
+                <kogus>400</kogus>
+                <topsitüüp>Pudel</topsitüüp>
+                <maksmisviis>card,cash</maksmisviis>
+            </jook>
+
+        </joogid>
+    </grupp>
+
+    <grupp id="specials">
+        <joogid>
+
+            <jook id="23">
+                <jooginimi>Affogato</jooginimi>
+                <kogus>150</kogus>
+                <topsitüüp>Väike</topsitüüp>
+                <maksmisviis>card</maksmisviis>
+            </jook>
+
+            <jook id="24">
+                <jooginimi>Matcha Latte</jooginimi>
+                <kogus>300</kogus>
+                <topsitüüp>Keskmine</topsitüüp>
+                <maksmisviis>card,cash</maksmisviis>
+            </jook>
+
+            <jook id="25">
+                <jooginimi>Protein Shake</jooginimi>
+                <kogus>400</kogus>
+                <topsitüüp>Suur</topsitüüp>
+                <maksmisviis>card</maksmisviis>
+            </jook>
+
+        </joogid>
+    </grupp>
+
+</joogimenüü>
