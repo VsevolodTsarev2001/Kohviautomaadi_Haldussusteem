@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="drinks.xsl"?>
+
 <joogimenüü>
 
     <grupp id="hot-drinks">
@@ -76,7 +78,7 @@
             <jook id="10">
                 <jooginimi>Berry Smoothie</jooginimi>
                 <kogus>330</kogus>
-                <topsitüüp>Keskmine</topsитüüp>
+                <topsitüüp>Keskmine</topsitüüp>
                 <maksmisviis>card,cash</maksmisviis>
             </jook>
 
@@ -96,7 +98,7 @@
             <jook id="12">
                 <jooginimi>Orange Juice</jooginimi>
                 <kogus>300</kogus>
-                <topsитüüp>Keskmine</topsитüüp>
+                <topsitüüp>Keskmine</topsitüüp>
                 <maksmisviis>card</maksmisviis>
             </jook>
 
@@ -123,7 +125,7 @@
             <jook id="15">
                 <jooginimi>Green Tea</jooginimi>
                 <kogus>250</kogus>
-                <topsitüüp>Väike</topsiтüüp>
+                <topsitüüp>Väike</topsitüüp>
                 <maksmisviis>cash</maksmisviis>
             </jook>
 
