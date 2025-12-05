@@ -1,9 +1,8 @@
 <?php
 require 'functions.php';
+session_start();
 
 $xml = loadXml();
-
-// ----- FILTERS -----
 $search = isset($_GET['search']) ? strtolower(trim($_GET['search'])) : '';
 $category = isset($_GET['category']) ? $_GET['category'] : '';
 
@@ -11,10 +10,9 @@ $category = isset($_GET['category']) ? $_GET['category'] : '';
 $drinks = [];
 foreach ($xml->grupp as $g) {
     if ($category !== '' && (string)$g['id'] !== $category) continue;
-
     if (!$g->joogid) continue;
     foreach ($g->joogid->jook as $j) {
-        $j->_grupp = (string)$g['id']; // временное поле для фильтра и вывода
+        $j->_grupp = (string)$g['id'];
         $drinks[] = $j;
     }
 }
@@ -26,51 +24,60 @@ if ($search !== '') {
     });
 }
 
+// ----- SORT BY NIMI (ALPHABETICALLY) -----
+usort($drinks, function($a, $b) {
+    return strcasecmp((string)$a->jooginimi, (string)$b->jooginimi);
+});
 ?>
 <!DOCTYPE html>
 <html lang="et">
 <head>
     <meta charset="UTF-8">
-    <title>Joogid</title>
-    <style>
-        body { font-family: Arial; background:#f0f0f0; padding:20px; }
-        table { border-collapse: collapse; width:100%; background:white; }
-        th, td { padding:8px 12px; border:1px solid #ccc; }
-        th { background:#333; color:white; }
-        input, select { padding:5px; margin:4px; }
-        .button { padding:6px 12px; background:#444; color:white; text-decoration:none; }
-    </style>
+    <title>Kohviautomaat</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Joogid</h1>
+<header>
+    <h1>Kohviautomaat</h1>
+    <?php if(isset($_SESSION['user'])): ?>
+        <div>
+            Tere, <?= htmlspecialchars($_SESSION['user']['username']) ?> |
+            <a href="logout.php" class="btn">Logi välja</a>
+        </div>
+    <?php endif; ?>
+</header>
 
-<form id="filterForm" method="GET">
-    Otsi: <input type="text" name="search" id="searchInput" value="<?= htmlspecialchars($search) ?>">
-    Kategooria:
-    <select name="category" id="categorySelect">
-        <option value="">Kõik</option>
-        <?php foreach ($xml->grupp as $g): ?>
-            <option value="<?= $g['id'] ?>" <?= $category==$g['id']?'selected':'' ?>>
-                <?= ucfirst((string)$g['id']) ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
-</form>
+<div class="card-container">
+    <form id="filterForm" method="GET">
+        <label>Otsi:</label>
+        <input type="text" name="search" id="searchInput" value="<?= htmlspecialchars($search) ?>">
+        <label>Kategooria:</label>
+        <select name="category" id="categorySelect">
+            <option value="">Kõik</option>
+            <?php foreach ($xml->grupp as $g): ?>
+                <option value="<?= $g['id'] ?>" <?= $category==$g['id']?'selected':'' ?>>
+                    <?= ucfirst((string)$g['id']) ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <button type="submit" class="btn">Filtreeri</button>
+    </form>
+</div>
 
-<br>
-
-<table>
+<table id="drinksTable">
+    <thead>
     <tr>
-        <th>ID</th>
-        <th>Nimi</th>
-        <th>Kogus (ml)</th>
-        <th>Tops</th>
-        <th>Maksmine</th>
-        <th>Kategooria</th>
+        <th onclick="sortTable(0)">ID</th>
+        <th onclick="sortTableByName()">Nimi</th>
+        <th onclick="sortTable(2)">Kogus (ml)</th>
+        <th onclick="sortTable(3)">Tops</th>
+        <th onclick="sortTable(4)">Maksmine</th>
+        <th onclick="sortTable(5)">Kategooria</th>
         <th>Toimingud</th>
     </tr>
-
+    </thead>
+    <tbody>
     <?php foreach ($drinks as $d): ?>
         <tr>
             <td><?= $d['id'] ?></td>
@@ -80,27 +87,83 @@ if ($search !== '') {
             <td><?= htmlspecialchars($d->maksmisviis) ?></td>
             <td><?= htmlspecialchars($d->_grupp) ?></td>
             <td>
-                <a class="button" href="edit.php?id=<?= $d['id'] ?>">Muuda</a>
-                <a class="button" href="delete.php?id=<?= $d['id'] ?>" onclick="return confirm('Kustutada?');">Kustuta</a>
+                <a class="btn" href="edit.php?id=<?= $d['id'] ?>">Muuda</a>
+                <a class="btn" href="delete.php?id=<?= $d['id'] ?>" onclick="return confirm('Kustutada?');">Kustuta</a>
             </td>
         </tr>
     <?php endforeach; ?>
+    </tbody>
 </table>
 
 <script>
-    const searchInput = document.getElementById('searchInput');
-    const categorySelect = document.getElementById('categorySelect');
-    const form = document.getElementById('filterForm');
+    function sortTableByName() {
+        const table = document.getElementById("drinksTable");
+        let rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        switching = true;
+        dir = "asc"; // начальное направление сортировки
 
-    // Фильтрация при вводе текста
-    searchInput.addEventListener('input', () => {
-        form.submit();
-    });
+        while (switching) {
+            switching = false;
+            rows = table.rows;
 
-    // Фильтрация при выборе категории
-    categorySelect.addEventListener('change', () => {
-        form.submit();
-    });
+            for (i = 1; i < rows.length - 1; i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[1]; // столбец "Nimi"
+                y = rows[i + 1].getElementsByTagName("TD")[1];
+
+                if (dir === "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir === "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount === 0 && dir === "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
+
+    function sortTable(n) {
+        const table = document.getElementById("drinksTable");
+        let switching = true;
+        let dir = "asc";
+
+        while(switching){
+            switching = false;
+            let rows = table.rows;
+            for(let i=1;i<rows.length-1;i++){
+                let shouldSwitch = false;
+                let x = rows[i].getElementsByTagName("TD")[n];
+                let y = rows[i+1].getElementsByTagName("TD")[n];
+                let cmpX = isNaN(x.innerHTML) ? x.innerHTML.toLowerCase() : parseFloat(x.innerHTML);
+                let cmpY = isNaN(y.innerHTML) ? y.innerHTML.toLowerCase() : parseFloat(y.innerHTML);
+                if((dir==="asc" && cmpX>cmpY)||(dir==="desc" && cmpX<cmpY)){
+                    shouldSwitch=true; break;
+                }
+            }
+            if(shouldSwitch){
+                rows[i].parentNode.insertBefore(rows[i+1], rows[i]);
+                switching=true;
+            } else if(dir==="asc"){
+                dir="desc";
+                switching=true;
+            }
+        }
+    }
 </script>
 
 </body>

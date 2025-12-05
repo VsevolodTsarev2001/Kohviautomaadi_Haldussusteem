@@ -3,38 +3,54 @@ require 'functions.php';
 $xml = loadXml();
 $drink = findDrinkById($xml, $_GET['id']);
 ?>
-
 <!DOCTYPE html>
 <html>
+<head>
+    <meta charset="UTF-8">
+    <title>Muuda jooki</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 <body>
-<h2>Muuda jooki</h2>
+<div class="flex-center">
+    <div class="card-container">
+        <h3>Muuda jooki</h3>
+        <form action="api_edit.php" method="POST">
+            <input type="hidden" name="id" value="<?= $drink['id'] ?>">
 
-<form action="api_edit.php" method="POST">
+            <div class="input-group">
+                <span class="icon">Nimi</span>
+                <input name="jooginimi" type="text" placeholder="Jooogi nimi" value="<?= htmlspecialchars($drink->jooginimi) ?>" required>
+            </div>
 
-    <input type="hidden" name="id" value="<?= $drink['id'] ?>">
+            <div class="input-group">
+                <span class="icon">Kogus (ml)</span>
+                <input name="kogus" type="number" placeholder="Kogus (ml)" value="<?= htmlspecialchars($drink->kogus) ?>" required>
+            </div>
 
-    Nimi: <input name="jooginimi" value="<?= htmlspecialchars($drink->jooginimi) ?>"><br><br>
+            <div class="input-group">
+                <span class="icon">Kategooria</span>
+                <select name="grupp" required>
+                    <?php foreach ($xml->grupp as $g): ?>
+                        <option value="<?= $g['id'] ?>" <?= $drink->xpath('ancestor::grupp')[0]['id']==$g['id']?'selected':'' ?>>
+                            <?= ucfirst((string)$g['id']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-    Kogus (ml): <input name="kogus" value="<?= htmlspecialchars($drink->kogus) ?>"><br><br>
+            <div class="input-group">
+                <span class="icon">Tops</span>
+                <input name="topsitüüp" type="text" placeholder="Tops" value="<?= htmlspecialchars($drink->topsitüüp) ?>">
+            </div>
 
-    Kategooria:
-    <select name="grupp">
-        <option value="hot-drinks" <?= $drink->xpath('ancestor::grupp')[0]['id']=='hot-drinks'?'selected':''?>>Kuum</option>
-        <option value="cold-drinks" <?= $drink->xpath('ancestor::grupp')[0]['id']=='cold-drinks'?'selected':''?>>Külm</option>
-        <option value="juices" <?= $drink->xpath('ancestor::grupp')[0]['id']=='juices'?'selected':''?>>Mahl</option>
-        <option value="tee" <?= $drink->xpath('ancestor::grupp')[0]['id']=='tee'?'selected':''?>>Tee</option>
-        <option value="limonaad" <?= $drink->xpath('ancestor::grupp')[0]['id']=='limonaad'?'selected':''?>>Limonaad</option>
-        <option value="alcohol" <?= $drink->xpath('ancestor::grupp')[0]['id']=='alcohol'?'selected':''?>>Alkohoolne</option>
-        <option value="specials" <?= $drink->xpath('ancestor::grupp')[0]['id']=='specials'?'selected':''?>>Spetsiaalsed</option>
-    </select><br><br>
+            <div class="input-group">
+                <span class="icon">Maksmine</span>
+                <input name="maksmisviis" type="text" placeholder="Maksmisviis" value="<?= htmlspecialchars($drink->maksmisviis) ?>">
+            </div>
 
-    Tops: <input name="topsitüüp" value="<?= htmlspecialchars($drink->topsitüüp) ?>"><br><br>
-
-    Maksmine: <input name="maksmisviis" value="<?= htmlspecialchars($drink->maksmisviis) ?>"><br><br>
-
-    <button type="submit">Salvesta</button>
-
-</form>
-
+            <button type="submit" class="btn">Salvesta</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>

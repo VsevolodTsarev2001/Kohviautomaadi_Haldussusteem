@@ -1,11 +1,7 @@
 <?php
-// functions.php
 
 define('XML_FILE', __DIR__ . '/drinks.xml');
 
-/**
- * Load XML
- */
 function loadXml() {
     if (!file_exists(XML_FILE)) {
         throw new Exception('drinks.xml not found');
@@ -21,26 +17,41 @@ function loadXml() {
     return $xml;
 }
 
-/**
- * Save XML
- */
+
 function saveXml($xml) {
     $tmp = tempnam(sys_get_temp_dir(), 'xml');
     file_put_contents($tmp, $xml->asXML());
     rename($tmp, XML_FILE);
 }
 
-/**
- * Find drink by ID
- */
+
+function logAction($text) {
+    $line = "[" . date("Y-m-d H:i:s") . "] " . $text . "\n";
+    file_put_contents(__DIR__ . "/logs/actions.log", $line, FILE_APPEND);
+}
+
+
+function validateDrink($data) {
+    if (!isset($data['jooginimi']) || trim($data['jooginimi']) === '')
+        throw new Exception("Jooginimi on kohustuslik");
+
+    if (!isset($data['kogus']) || !is_numeric($data['kogus']) || $data['kogus'] <= 0)
+        throw new Exception("Kogus peab olema positiivne");
+
+    if (!isset($data['grupp']) || trim($data['grupp']) === '')
+        throw new Exception("Kategooria on kohustuslik");
+
+    if (!isset($data['maksmisviis']) || trim($data['maksmisviis']) === '')
+        throw new Exception("Maksmisviis on kohustuslik");
+}
+
+
 function findDrinkById($xml, $id) {
     $res = $xml->xpath("//jook[@id='{$id}']");
     return $res ? $res[0] : null;
 }
 
-/**
- * Generate new numeric ID
- */
+
 function generateNewId($xml) {
     $max = 0;
     foreach ($xml->xpath("//jook") as $d) {
@@ -50,16 +61,13 @@ function generateNewId($xml) {
     return $max + 1;
 }
 
-/**
- * Add drink
- */
-function addDrink($data) {
-    $xml = loadXml();
 
+function addDrink($data) {
+    validateDrink($data);
+
+    $xml = loadXml();
     $category = $data['grupp'];
 
-    // find group (grupp) with this id
-    $group = null;
     foreach ($xml->grupp as $g) {
         if ((string)$g['id'] === $category) {
             $group = $g;
@@ -67,13 +75,9 @@ function addDrink($data) {
         }
     }
 
-    if (!$group) {
-        throw new Exception("Category '$category' not found in XML.");
-    }
+    if (!$group) throw new Exception("Category '$category' not found in XML.");
 
-    if (!$group->joogid) {
-        $group->addChild('joogid');
-    }
+    if (!$group->joogid) $group->addChild('joogid');
 
     $newId = generateNewId($xml);
 
@@ -86,52 +90,31 @@ function addDrink($data) {
 
     saveXml($xml);
 
+    logAction("ADD: id=$newId name={$data['jooginimi']}");
+
     return $newId;
 }
 
-/**
- * Edit drink
- */
+
 function editDrink($data) {
+    validateDrink($data);
+
     $xml = loadXml();
-
     $node = findDrinkById($xml, $data['id']);
-    if (!$node) throw new Exception("Drink not found");
+    if (!$node) throw new Exception('Drink not found');
 
-    // Update fields
     foreach (['jooginimi','kogus','topsitüüp','maksmisviis'] as $child) {
         if (isset($data[$child])) {
             $node->$child = $data[$child];
         }
     }
 
-    // Update group if changed
-    if (isset($data['grupp'])) {
-        $oldGroup = $node->xpath('ancestor::grupp')[0];
-        if ((string)$oldGroup['id'] !== $data['grupp']) {
-            // Remove from old group
-            $domNode = dom_import_simplexml($node);
-            $domNode->parentNode->removeChild($domNode);
-
-            // Add to new group
-            $newGroup = null;
-            foreach ($xml->grupp as $g) {
-                if ((string)$g['id'] === $data['grupp']) {
-                    $newGroup = $g;
-                    break;
-                }
-            }
-            if (!$newGroup->joogid) $newGroup->addChild('joogid');
-            $newGroup->joogid->appendChild($node);
-        }
-    }
-
     saveXml($xml);
+
+    logAction("EDIT: id={$data['id']} name={$data['jooginimi']}");
 }
 
-/**
- * Delete drink
- */
+
 function deleteDrink($id) {
     $xml = loadXml();
 
@@ -142,11 +125,10 @@ function deleteDrink($id) {
     $dom->parentNode->removeChild($dom);
 
     saveXml($xml);
+
+    logAction("DELETE: id=$id");
 }
 
-/**
- * Export XML to JSON
- */
 function exportJSON() {
     $xml = loadXml();
     return json_encode($xml, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);

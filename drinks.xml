@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="drinks.xsl"?>
-
 <joogimenüü>
 
     <grupp id="hot-drinks">
@@ -8,16 +7,16 @@
 
             <jook id="1">
                 <jooginimi>Latte</jooginimi>
-                <kogus>250</kogus>
+                <kogus>300</kogus>
                 <topsitüüp>Keskmine</topsitüüp>
                 <maksmisviis>card,cash</maksmisviis>
             </jook>
 
             <jook id="2">
                 <jooginimi>Cappuccino</jooginimi>
-                <kogus>300</kogus>
+                <kogus>400</kogus>
                 <topsitüüp>Suur</topsitüüp>
-                <maksmisviis>cash</maksmisviis>
+                <maksmisviis>cash,money</maksmisviis>
             </jook>
 
             <jook id="3">

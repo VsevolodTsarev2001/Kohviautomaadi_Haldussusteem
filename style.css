@@ -1,0 +1,214 @@
+/* ===== Общие стили ===== */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f0f4f8;
+    margin: 0;
+    padding: 0;
+    color: #111827;
+}
+
+h1, h2, h3 {
+    margin: 0 0 15px 0;
+    text-align: center;
+}
+
+/* ===== Header ===== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: #3b82f6;
+    color: white;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 12px;
+    background-color: #ef4444;
+    border-radius: 4px;
+}
+
+/* ===== Кнопки ===== */
+button, .button, .btn {
+    display: inline-block;
+    padding: 8px 15px;
+    margin: 5px 0;
+    background-color: #3b82f6;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover, .button:hover, .btn:hover {
+    background-color: #2563eb;
+}
+
+/* ===== Формы ===== */
+form {
+    width: 100%;
+}
+
+.card-container {
+    width: 400px;
+    margin: 50px auto;
+    padding: 25px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    border-radius: 10px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+input[type=text], input[type=password], input[type=number], select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* ===== Сообщения ===== */
+.alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.alert-danger {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+/* ===== Центровка ===== */
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+
+/* ===== Таблицы ===== */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #1e40af;
+    color: white;
+    cursor: pointer;
+}
+
+tr:nth-child(even) { background: #f9fafb; }
+tr:hover { background: #e0f2fe; }
+
+/* ===== Карточки форм ===== */
+.card-container {
+    width: 400px; /* фиксированная ширина для всех форм */
+    margin: 50px auto; /* центрирование по вертикали и горизонтали */
+    padding: 30px 25px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border-radius: 12px;
+    box-sizing: border-box;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-container:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.card-container h3 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1e40af;
+}
+
+/* ===== Поля форм внутри карточки (одинаковые размеры) ===== */
+.card-container input[type=text],
+.card-container input[type=password],
+.card-container input[type=number],
+.card-container select {
+    width: 100%;           /* одинаковая ширина */
+    padding: 10px 12px;    /* одинаковый внутренний отступ */
+    margin-top: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box; /* важно для одинаковой ширины */
+}
+
+
+.card-container label {
+    font-weight: 600;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Кнопки внутри карточки */
+.card-container button,
+.card-container .btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: white;
+    background-color: #3b82f6;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.card-container button:hover,
+.card-container .btn:hover {
+    background-color: #2563eb;
+}
+
+/* Сообщения об ошибках */
+.alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.alert-danger {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Центрирование всех карточек */
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+

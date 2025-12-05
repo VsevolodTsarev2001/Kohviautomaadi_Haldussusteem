@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<users>
+
+    <user id="1">
+        <username>admin</username>
+        <password>$2y$10$3XU5mSIBElwphFXwhxTUiO.aC5fVrVlvV9kVh.n4gA7MrKbzu39Ly</password>
+        <role>admin</role>
+    </user>
+
+    <user id="2">
+        <username>seva</username>
+        <password>$2y$10$U3byXi27hEYFmZL2V8iyZ.DKJqpKuVCa25NnUksnPKbcuVkEiHCoe</password>
+        <role>admin</role>
+    </user>
+    <user id="3">
+        <username>bogdan</username>
+        <password>$2y$10$XXK3Qjf0HL9ePELWGMVqhe3oenmWEIjpwVC2U9RSfXHKMPJt7fLUu</password>
+        <role>user</role>
+    </user>
+    <user id="4">
+        <username>kirill</username>
+        <password>$2y$10$ojK0uQ1CKSArHHIHDVGYhOzZ.YIbqGApSdwRyiOSkZIRQZ4gTJKbi</password>
+        <role>user</role>
+    </user>
+<user id="5"><username>Irina</username><password>$2y$10$TqN8QUV1H.0615AVkIZOkudc7lIhbBX45WvO0DpsIkjLdvly1Wdhe</password><role>user</role></user></users>
